@@ -82,7 +82,8 @@ class GoogleSignin {
         RNGoogleSignin.getAccessToken(user).then((token) => {
           this._user.accessToken = token;
           this._removeListeners(sucessCb, errorCb);
-          resolve(this._user);
+          // https://github.com/devfd/react-native-google-signin/issues/147
+          resolve({...this._user, accessToken: token});
         })
         .catch(err => {
           this._removeListeners(sucessCb, errorCb);
